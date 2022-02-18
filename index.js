@@ -17,7 +17,7 @@ program
   .description(packageJson.description)
   .version(packageJson.version)
   .argument("<ext-name>")
-  .usage(`${chalk.green("create-web-ext <ext-name>")}`)
+  .usage(`${chalk.green(`${packageJson.name} <ext-name>`)}`)
   .action((extensionName) => {
     const extensionDir = path.resolve(process.cwd(), extensionName)
 
