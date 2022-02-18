@@ -2,6 +2,7 @@ import fs from "fs"
 import path from "path"
 
 import {
+  capitalizeName,
   copyFile,
   createAndCopy,
   createDirs,
@@ -9,7 +10,6 @@ import {
   validURL,
 } from "./utils.js"
 import {
-  FILE_BACKGROUND_JS,
   FILE_POPUP,
   FILE_OPTIONS,
   FILE_POPUP_JS,
@@ -18,7 +18,10 @@ import {
   FILE_CONTENT_CSS,
   FILE_OPTIONS_JS,
   FILE_OPTIONS_CSS,
+  FILE_BACKGROUND_JS,
+  DIR_ICONS,
 } from "./constants.js"
+import { generateIcons } from "./generateIcons.js"
 
 export default function generateManifest(webExtName, options) {
   const manifestJson = {
@@ -27,16 +30,17 @@ export default function generateManifest(webExtName, options) {
     description: options.description || "description",
     version: options.version || "0.1",
     action: {
-      default_icon: "icon.png",
+      default_icon: DIR_ICONS + "icon16.png",
+      default_title: capitalizeName(webExtName) || "Click Me!",
     },
     icons: {
-      16: "icon.png",
-      48: "icon.png",
-      128: "icon.png",
+      16: DIR_ICONS + "icon16.png",
+      48: DIR_ICONS + "icon48.png",
+      128: DIR_ICONS + "icon128.png",
     },
   }
 
-  copyFile(webExtName, "icon.png")
+  generateIcons(webExtName)
 
   if (options.homepage !== "" && validURL(options.homepage)) {
     manifestJson["homepage_url"] = options.homepage

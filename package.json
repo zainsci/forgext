@@ -1,6 +1,6 @@
 {
   "name": "forgext",
-  "version": "0.1",
+  "version": "0.2",
   "description": "Create boiler-plate code for web extensions",
   "main": "index.js",
   "author": "zainsci",
@@ -8,7 +8,8 @@
   "dependencies": {
     "chalk": "^5.0.0",
     "commander": "^9.0.0",
-    "inquirer": "^8.2.0"
+    "inquirer": "^8.2.0",
+    "sharp": "^0.30.1"
   },
   "type": "module"
 }
