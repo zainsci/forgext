@@ -1,7 +1,13 @@
 import fs from "fs"
 import path from "path"
 
-import { copyFile, createDirs, validURL } from "./utils.js"
+import {
+  copyFile,
+  createAndCopy,
+  createDirs,
+  successMessage,
+  validURL,
+} from "./utils.js"
 import {
   FILE_BACKGROUND_JS,
   FILE_POPUP,
@@ -13,7 +19,6 @@ import {
   FILE_OPTIONS_JS,
   FILE_OPTIONS_CSS,
 } from "./constants.js"
-import chalk from "chalk"
 
 export default function generateManifest(webExtName, options) {
   const manifestJson = {
@@ -42,7 +47,8 @@ export default function generateManifest(webExtName, options) {
 
     createDirs(webExtName)
 
-    copyFile(webExtName, FILE_POPUP)
+    createAndCopy(webExtName, FILE_POPUP)
+
     copyFile(webExtName, FILE_POPUP_JS)
     copyFile(webExtName, FILE_POPUP_CSS)
   }
@@ -71,7 +77,8 @@ export default function generateManifest(webExtName, options) {
   if (options.options_page) {
     manifestJson["options_page"] = FILE_OPTIONS
 
-    copyFile(webExtName, FILE_OPTIONS)
+    createAndCopy(webExtName, FILE_OPTIONS)
+
     copyFile(webExtName, FILE_OPTIONS_JS)
     copyFile(webExtName, FILE_OPTIONS_CSS)
   }
@@ -82,18 +89,4 @@ export default function generateManifest(webExtName, options) {
   )
 
   successMessage(webExtName)
-}
-
-export function successMessage(extName) {
-  console.log("")
-  console.log("")
-  console.log(
-    `Success! Created ${chalk.green(extName)} at ${chalk.yellow(
-      "/" + extName
-    )}.`
-  )
-  console.log("")
-  console.log("Start building: ")
-  console.log("  $ cd", chalk.green(extName))
-  console.log("")
 }
