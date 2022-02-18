@@ -30,13 +30,13 @@ export default function generateManifest(webExtName, options) {
     description: options.description || "description",
     version: options.version || "0.1",
     action: {
-      default_icon: DIR_ICONS + "icon16.png",
+      default_icon: DIR_ICONS + "/icon16.png",
       default_title: capitalizeName(webExtName) || "Click Me!",
     },
     icons: {
-      16: DIR_ICONS + "icon16.png",
-      48: DIR_ICONS + "icon48.png",
-      128: DIR_ICONS + "icon128.png",
+      16: DIR_ICONS + "/icon16.png",
+      48: DIR_ICONS + "/icon48.png",
+      128: DIR_ICONS + "/icon128.png",
     },
   }
 
