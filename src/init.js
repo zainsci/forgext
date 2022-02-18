@@ -3,7 +3,7 @@ import chalk from "chalk"
 
 import generateManifest from "./genManifest.js"
 
-export default function init(webExtName) {
+export default function init(webExtName, customIconPath) {
   inquirer
     .prompt([
       {
@@ -53,7 +53,7 @@ export default function init(webExtName) {
         default: false,
       },
     ])
-    .then((answers) => generateManifest(webExtName, answers))
+    .then((answers) => generateManifest(webExtName, answers, customIconPath))
     .then(console.log)
     .catch(console.log)
 }

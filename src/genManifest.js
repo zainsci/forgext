@@ -23,7 +23,7 @@ import {
 } from "./constants.js"
 import { generateIcons } from "./generateIcons.js"
 
-export default function generateManifest(webExtName, options) {
+export default function generateManifest(webExtName, options, customIconPath) {
   const manifestJson = {
     manifest_version: 3,
     name: webExtName,
@@ -40,7 +40,7 @@ export default function generateManifest(webExtName, options) {
     },
   }
 
-  generateIcons(webExtName)
+  generateIcons(webExtName, customIconPath)
 
   if (options.homepage !== "" && validURL(options.homepage)) {
     manifestJson["homepage_url"] = options.homepage

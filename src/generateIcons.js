@@ -14,6 +14,9 @@ export function generateIcons(webExtName, iconPath) {
       path.resolve(path.resolve(), "src", "assets", FILE_ICON)
     )
     imageBuffer = Buffer.from(imageBuffer)
+  } else {
+    imageBuffer = fs.readFileSync(path.resolve(process.cwd(), iconPath))
+    imageBuffer = Buffer.from(imageBuffer)
   }
 
   ICON_SIZE_SET.forEach((size) => {
