@@ -48,6 +48,15 @@ if (typeof extensionName === "undefined") {
 
 const options = program.opts()
 if (options.icon) {
+  if (!fs.existsSync(path.resolve(process.cwd(), options.icon))) {
+    console.log(
+      "Error: File with name",
+      chalk.red(options.icon),
+      "does not exists."
+    )
+    process.exit(1)
+  }
+
   init(extensionName, options.icon)
 } else {
   init(extensionName)
