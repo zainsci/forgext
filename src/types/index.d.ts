@@ -22,6 +22,20 @@ export type ManifestJson = {
   options_page?: string
 }
 
+export type PackageJson = {
+  name: string
+  version: string
+  scripts?: {
+    [key: string]: string
+  }
+  dependencies?: {
+    [key: string]: string
+  }
+  devDependencies?: {
+    [key: string]: string
+  }
+}
+
 export interface CommandOptions extends OptionValues {
   webpack?: boolean
   tailwindcss?: boolean

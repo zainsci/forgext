@@ -1,0 +1,17 @@
+const CopyWebpackPlugin = require("copy-webpack-plugin")
+
+module.exports = {
+  entry: <<ENTRY>>,
+  output: {
+    filename: (pathData) => {
+      return pathData.chunk.name === "background"
+        ? "[name].js"
+        : "./js/[name].js"
+    },
+  },
+  plugins:  [
+    new CopyWebpackPlugin({
+      patterns: <<PATTERNS>>
+    }),
+  ]
+}

@@ -2,6 +2,8 @@ import inquirer from "inquirer"
 import chalk from "chalk"
 
 import generateManifest from "./generateManifest.js"
+import generatePackgeJson from "./generatePackageJson.js"
+import generateWebPackConfig from "./generateWebPackConfig.js"
 import { CommandOptions } from "./types"
 
 export default function Prompt(webExtName: string, options?: CommandOptions) {
@@ -54,7 +56,14 @@ export default function Prompt(webExtName: string, options?: CommandOptions) {
         default: false,
       },
     ])
-    .then((answers) => generateManifest(webExtName, answers, options))
+    .then((answers) => {
+      generateManifest(webExtName, answers, options)
+
+      if (options?.webpack) {
+        generatePackgeJson(webExtName)
+        generateWebPackConfig(webExtName, answers)
+      }
+    })
     .then(console.log)
     .catch(console.log)
 }

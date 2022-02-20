@@ -43,7 +43,7 @@ export function validURL(str: string) {
   return !!pattern.test(str)
 }
 
-export function successMessage(webExtName: string) {
+export function successMessage(webExtName: string, isDev: boolean | undefined) {
   console.log("")
   console.log("")
   console.log(
@@ -54,6 +54,9 @@ export function successMessage(webExtName: string) {
   console.log("")
   console.log("Start building: ")
   console.log("  $ cd", chalk.green(webExtName))
+  if (isDev && typeof isDev !== "undefined") {
+    console.log("  $", chalk.green("npm intall && npm run dev"))
+  }
   console.log("")
 }
 

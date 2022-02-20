@@ -98,5 +98,5 @@ export default function generateManifest(
     JSON.stringify(manifestJson, null, 2)
   )
 
-  successMessage(webExtName)
+  successMessage(webExtName, options?.webpack || options?.tailwindcss)
 }
