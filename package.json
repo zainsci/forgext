@@ -11,5 +11,14 @@
     "inquirer": "^8.2.0",
     "sharp": "^0.30.1"
   },
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "@types/node": "^17.0.18",
+    "@types/inquirer": "^8.2.0",
+    "@types/sharp": "^0.29.5",
+    "typescript": "^4.5.5"
+  },
+  "scripts": {
+    "build": "tsc --outDir dist"
+  }
 }

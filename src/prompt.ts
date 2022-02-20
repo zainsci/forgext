@@ -1,9 +1,10 @@
 import inquirer from "inquirer"
 import chalk from "chalk"
 
-import generateManifest from "./genManifest.js"
+import generateManifest from "./generateManifest.js"
+import { CommandOptions } from "./types"
 
-export default function init(webExtName, customIconPath) {
+export default function Prompt(webExtName: string, options?: CommandOptions) {
   inquirer
     .prompt([
       {
@@ -53,7 +54,7 @@ export default function init(webExtName, customIconPath) {
         default: false,
       },
     ])
-    .then((answers) => generateManifest(webExtName, answers, customIconPath))
+    .then((answers) => generateManifest(webExtName, answers, options))
     .then(console.log)
     .catch(console.log)
 }

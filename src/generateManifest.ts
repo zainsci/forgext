@@ -22,13 +22,18 @@ import {
   DIR_ICONS,
 } from "./constants.js"
 import { generateIcons } from "./generateIcons.js"
+import { ManifestJson, CommandOptions, Answers } from "./types/index"
 
-export default function generateManifest(webExtName, options, customIconPath) {
-  const manifestJson = {
+export default function generateManifest(
+  webExtName: string,
+  answers: Answers,
+  options?: CommandOptions
+) {
+  const manifestJson: ManifestJson = {
     manifest_version: 3,
     name: webExtName,
-    description: options.description || "description",
-    version: options.version || "0.1",
+    description: answers.description || "description",
+    version: answers.version || "0.1",
     action: {
       default_icon: DIR_ICONS + "/icon16.png",
       default_title: capitalizeName(webExtName) || "Click Me!",
@@ -40,13 +45,14 @@ export default function generateManifest(webExtName, options, customIconPath) {
     },
   }
 
-  generateIcons(webExtName, customIconPath)
+  fs.mkdir(path.resolve(process.cwd(), webExtName), () => {})
+  generateIcons(webExtName, options)
 
-  if (options.homepage !== "" && validURL(options.homepage)) {
-    manifestJson["homepage_url"] = options.homepage
+  if (answers.homepage !== "" && validURL(answers.homepage)) {
+    manifestJson["homepage_url"] = answers.homepage
   }
 
-  if (options.popup) {
+  if (answers.popup) {
     manifestJson.action["default_popup"] = FILE_POPUP
 
     createDirs(webExtName)
@@ -57,7 +63,7 @@ export default function generateManifest(webExtName, options, customIconPath) {
     copyFile(webExtName, FILE_POPUP_CSS)
   }
 
-  if (options.background) {
+  if (answers.background) {
     manifestJson["background"] = {
       service_worker: FILE_BACKGROUND_JS,
     }
@@ -65,7 +71,7 @@ export default function generateManifest(webExtName, options, customIconPath) {
     copyFile(webExtName, FILE_BACKGROUND_JS)
   }
 
-  if (options.content_script) {
+  if (answers.content_script) {
     manifestJson["content_scripts"] = [
       {
         js: [FILE_CONTENT_JS],
@@ -78,7 +84,7 @@ export default function generateManifest(webExtName, options, customIconPath) {
     copyFile(webExtName, FILE_CONTENT_CSS)
   }
 
-  if (options.options_page) {
+  if (answers.options_page) {
     manifestJson["options_page"] = FILE_OPTIONS
 
     createAndCopy(webExtName, FILE_OPTIONS)
